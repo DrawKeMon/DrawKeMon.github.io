@@ -3,7 +3,7 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>Modern Town - Responsive HTML5 Template</title>
+	<title>Drawkemon</title>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,9 +60,9 @@
 			
 			<div class="col-md-6 col-sm-12">
 				<div class="about-des">
-					<h4>New Community Mall</h4>
-					<h3>Going to the NEXT Level</h3>
-					<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa. Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa.</p>
+					<!--<h4>New Community Mall</h4>-->
+					<h3>Welcome to Drawkemon!</h3>
+					<p>This is an AI-based application that helps you design your own Pokemon. To try it out, draw your Pokemon sketch below and let the AI do the rest of the design and share your Pokemon with your friends!</p>
 				</div>
 			</div>
             
@@ -104,7 +104,7 @@ function main() {
 
   create_editor({
     name: "edges2cats",
-    weights_url: "/models/pokemon_model_0.bin",
+    weights_url: "/models/pokemon_model_full_20.bin",
     mode: "line",
     clear: "#FFFFFF",
     colors: {
@@ -112,9 +112,6 @@ function main() {
       eraser: "#ffffff",
     },
     draw: "#000000",
-    initial_input: "/edges2cats-input.png",
-    initial_output: "/edges2cats-output.png",
-    sheet_url: "/edges2cats-sheet.jpg",
   })
 
   window.requestAnimationFrame(frame)
@@ -575,7 +572,7 @@ Editor.prototype = {
         var url = window.URL.createObjectURL(blob)
         var a = document.createElement("a")
         a.href = url
-        a.download = "pix2pix.png"
+        a.download = "yourDrawkemon.png"
         // use createEvent instead of .click() to work in firefox
         // also can"t revoke the object url because firefox breaks
         var event = document.createEvent("MouseEvents")
@@ -584,6 +581,49 @@ Editor.prototype = {
         // safari doesn"t work at all
       }
     })
+
+   v.frame("submit_button", 580-32, 310, 64, 40, () => {
+          if (do_button(v, "submit")) {
+          // create a canvas to hold the part of the canvas that we wish to store
+          var x = 125 * SCALE
+          var y = 0
+          var width = 800 * SCALE - x
+          var height = 310 * SCALE - y
+          var convert = createContext(width, height, 1)
+          convert.drawImage(v.ctx.canvas, x, y, width, height, 0, 0, convert.canvas.width, convert.canvas.height)
+          var data_b64 = convert.canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, "")
+          var data = b64_to_bin(data_b64)
+          var blob = new Blob([data], {type: "application/octet-stream"})
+          var username = prompt("Please tell us your nick name:")
+          var pokename = prompt("Please tell us your pokemon's name:")
+          // alert(email)
+          // alert(pokename)
+          // alert(blob)
+          // var url = "/"
+          // $.post("/", {"username":"dummy", "pokename": "dummy"}, function (data, status) {
+          //     alert(data)
+          //     alert(status)
+          // })
+          var formData = new FormData();
+          formData.append("email", username);
+          formData.append("name", pokename);
+          formData.append("file", blob);
+          var req = new XMLHttpRequest();
+          req.open("POST", '/');
+          req.send(blob);
+          // var url = window.URL.createObjectURL(blob)
+          // var a = document.createElement("a")
+          // a.href = url
+          // a.download = "yourDrawkemon.png"
+          // // use createEvent instead of .click() to work in firefox
+          // // also can"t revoke the object url because firefox breaks
+          // var event = document.createEvent("MouseEvents")
+          // event.initEvent("click", true, true)
+          // a.dispatchEvent(event)
+          // safari doesn"t work at all
+          alert("Submitting")
+      }
+  })
 
     if (this.last_failure != null) {
       v.frame("server_error", 50, 350, v.f.width, 50, () => {
