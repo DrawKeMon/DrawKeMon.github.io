@@ -99,7 +99,7 @@
 <section id="blog" class="paralla-section" >
 
 <center>
-<div class = "div3" style="color: #FFFFFF">Draw your own pokemon!!!!</div>
+<div class = "div3" style="color: #000000">Draw your own pokemon!!!!</div>
 <div id="drawkemon" style="opacity: 0.8"></div>
 </center>
 <script src="deeplearn-0.3.15.js"></script>
@@ -133,6 +133,7 @@ function main() {
       eraser: "#ffffff",
     },
     draw: "#000000",
+    initial_input: "/1.png",
   })
 
   window.requestAnimationFrame(frame)
@@ -330,7 +331,7 @@ function Editor(config) {
     this.sheet_loaded = true
     update()
   }
-  this.sheet_index = 0
+  this.sheet_index = 1
 }
 
 Editor.prototype = {
@@ -564,19 +565,23 @@ Editor.prototype = {
       }
     })
 
-    if (this.sheet_loaded) {
       v.frame("random_button", 347-32, 310, 64, 40, () => {
         if (do_button(v, "random")) {
-          // pick next sheet entry
+          this.sheet_index = this.sheet_index % 4 + 1
           this.buffers = []
-          var y_offset = this.sheet_index * SIZE
-          this.buffer.drawImage(this.sheet, 0, y_offset, SIZE, SIZE, 0, 0, SIZE, SIZE)
-          this.output.drawImage(this.sheet, SIZE, y_offset, SIZE, SIZE, 0, 0, SIZE, SIZE)
-          this.sheet_index = (this.sheet_index + 1) % (this.sheet.height / SIZE)
+          this.buffer.fillStyle = this.config.clear
+          this.buffer.fillRect(0, 0, SIZE, SIZE)
+          this.output.fillStyle = "#FFFFFF"
+          this.output.fillRect(0, 0, SIZE, SIZE)
+          var image = new Image()
+          image.src = './'+this.sheet_index +'.png'
+          //alert(image.src)
+          image.onload = () => {
+            this.buffer.drawImage(image, 0, 0)
+          }
           update()
         }
       })
-    }
 
     v.frame("save_button", 655-32, 310, 64, 40, () => {
       if (do_button(v, "save")) {
