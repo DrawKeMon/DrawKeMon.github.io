@@ -14,7 +14,7 @@ class MyHTTPRequestHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         response = BytesIO()
-        response.write(b'This is POST request. ')
+        response.write(b'This is POST request. ') 
         response.write(b'Received: ')
         response.write(body)
         self.wfile.write(response.getvalue())
