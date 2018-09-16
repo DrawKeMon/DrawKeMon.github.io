@@ -4,6 +4,12 @@
 
 	<meta charset="utf-8">
 	<title>Drawkemon</title>
+  <!-- For Facebook -->
+  <meta property="og:url"           content="http://35.231.132.43:8083/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="Drawkemon" />
+  <meta property="og:description"   content="This is an AI-based application that helps you design your own Pokemon. To try it out, draw your Pokemon sketch below and let the AI do the rest of the design and share your Pokemon with your friends!" />
+  <meta property="og:image"         content="localhost:8000/images/pokemon2.png" />
 
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +28,9 @@
 	.div2{color: #FFFFFF;font-size: 30px; font-family:"Times New Roman";}
 	.div3{font-size: 40px;}
 	</style>
+
+  
+
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
@@ -63,6 +72,17 @@
 					<!--<h4>New Community Mall</h4>-->
 					<h3>Welcome to Drawkemon!</h3>
 					<p>This is an AI-based application that helps you design your own Pokemon. To try it out, draw your Pokemon sketch below and let the AI do the rest of the design and share your Pokemon with your friends!</p>
+          
+          <div id="fb-root"></div>
+          <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v3.1&appId=522053748259954&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
+          <!-- Your like button code -->
+          <div class="fb-like" data-href="http://35.231.132.43:8083/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 				</div>
 			</div>
             
