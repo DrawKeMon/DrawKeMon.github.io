@@ -80,7 +80,7 @@
 
 <center>
 <div class = "div3" style="color: #FFFFFF">Draw your own pokemon!!!!</div>
-<div id="edges2cats" style="opacity: 0.8"></div>
+<div id="drawkemon" style="opacity: 0.8"></div>
 </center>
 <script src="deeplearn-0.3.15.js"></script>
 <script>
@@ -103,8 +103,9 @@ function main() {
   }
 
   create_editor({
-    name: "edges2cats",
-    weights_url: "/models/pokemon_model_full_20.bin",
+    name: "drawkemon",
+    // weights_url: "/models/pokemon_model_full_20.bin",
+    weights_url: "/models/pokemon_model_0.bin",
     mode: "line",
     clear: "#FFFFFF",
     colors: {
